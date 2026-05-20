@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đánh giá chất lượng nhà hàng</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('index') }}">
+      <span class="brand-mark">RS</span>
+      <span>Review Sense</span>
+    </a>
+    <nav class="nav">
+      <a href="{{ url_for('index') }}">Trang chủ</a>
+      <a href="{{ url_for('index') }}#features">Tính năng</a>
+      <a href="{{ url_for('index') }}#how-it-works">Cách dùng</a>
+      <a class="active" href="{{ url_for('predict') }}">Đánh giá</a>
+    </nav>
+  </header>
+
+  <main class="page predict-page">
+    <section class="predict-hero-compact">
+      <h1>Đánh giá review nhà hàng.</h1>
+      <p class="subtitle">Nhập một review hoặc tải Excel/CSV để nhận kết quả.</p>
+    </section>
+
+    {% if error %}
+      <section class="alert error">{{ error }}</section>
+    {% endif %}
+
+    <section class="review-console">
+      <aside class="review-console-photo">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1400&q=82" alt="Bàn ăn trong nhà hàng" loading="eager">
+      </aside>
+
+      <div class="predict-grid review-console-actions">
+        <article class="card input-card">
+          <div class="card-title-row">
+            <span class="step">01</span>
+            <h2>Một review</h2>
+          </div>
+          <form method="post">
+            <input type="hidden" name="action" value="predict_text">
+            <label for="text">Nhập review</label>
+            <textarea id="text" name="text" rows="6" placeholder="Ví dụ: Món ăn ngon, phục vụ nhanh nhưng không gian hơi ồn.">{{ single_text }}</textarea>
+            <button type="submit">Đánh giá review</button>
+          </form>
+
+          {% if single_prediction %}
+            <div class="prediction {{ single_prediction }}">
+              <span>Kết quả</span>
+              <strong>{{ single_prediction_display }}</strong>
+            </div>
+          {% endif %}
+        </article>
+
+        <article class="card input-card accent-card">
+          <div class="card-title-row">
+            <span class="step">02</span>
+            <h2>File Excel/CSV</h2>
+          </div>
+          <form method="post" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="predict_file">
+            <label for="file">Tải file</label>
+            <input id="file" name="file" type="file" accept=".xlsx,.xls,.csv">
+            <p class="hint">Cột nội dung: review, comment, content hoặc text.</p>
+            <button type="submit">Đánh giá file</button>
+          </form>
+
+          {% if download_filename %}
+            <div class="download-box">
+              <p>File kết quả đã sẵn sàng.</p>
+              <a class="download" href="{{ url_for('download', filename=download_filename) }}">Tải file kết quả</a>
+            </div>
+          {% endif %}
+        </article>
+      </div>
+    </section>
+
+    {% if aspect_analysis %}
+      <section class="card wide aspect-card">
+        <div class="card-title-row">
+          <span class="step">03</span>
+          <h2>Nhận xét chi tiết</h2>
+        </div>
+        <p class="aspect-intro">Tổng hợp các ý kiến theo từng khía cạnh như món ăn, phục vụ, không gian, giá cả và thời gian chờ.</p>
+        {% if prediction_summary %}
+          <div class="overview-panel">
+            <div class="overview-content">
+              <span>Tổng quan cảm xúc</span>
+              <h3>{{ prediction_summary.conclusion_title }}</h3>
+              <p>{{ prediction_summary.total }} đánh giá đã được phân loại theo ba nhóm cảm xúc.</p>
+              <div class="sentiment-stack" aria-label="Biểu đồ phân bổ cảm xúc">
+                {% for item in prediction_summary.rows %}
+                  <i class="{{ item.label }}" style="width: {{ item.percent }}%" title="{{ item.display_label }}: {{ item.percent }}%"></i>
+                {% endfor %}
+              </div>
+              <div class="overview-stats">
+                {% for item in prediction_summary.rows %}
+                  <article class="overview-stat {{ item.label }}">
+                    <span>{{ item.display_label }}</span>
+                    <strong>{{ item.percent | round(1) }}%</strong>
+                    <em>{{ item.count }} đánh giá</em>
+                  </article>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+        <div class="aspect-grid">
+          {% for aspect in aspect_analysis %}
+            <article class="aspect-item {{ aspect.status }}">
+              <div class="aspect-head">
+                <div>
+                  <h3>{{ aspect.title }}</h3>
+                  <span>{{ aspect.total }} lượt nhắc</span>
+                </div>
+                <strong>{{ aspect.status_label }}</strong>
+              </div>
+
+              {% if aspect.total %}
+                <div class="aspect-counts">
+                  <span class="positive">Hài lòng: {{ aspect.sentiments.positive }}</span>
+                  <span class="neutral">Trung lập: {{ aspect.sentiments.neutral }}</span>
+                  <span class="negative">Không hài lòng: {{ aspect.sentiments.negative }}</span>
+                </div>
+                <div class="aspect-lines">
+                  {% if aspect.positive_terms %}
+                    <p><strong>Tích cực:</strong> {{ aspect.positive_terms | join(', ') }}</p>
+                  {% endif %}
+                  {% if aspect.negative_terms %}
+                    <p><strong>Cần chú ý:</strong> {{ aspect.negative_terms | join(', ') }}</p>
+                  {% endif %}
+                  {% if aspect.neutral_terms %}
+                    <p><strong>Trung lập:</strong> {{ aspect.neutral_terms | join(', ') }}</p>
+                  {% endif %}
+                  {% if not aspect.positive_terms and not aspect.negative_terms and not aspect.neutral_terms %}
+                    <p><strong>Gợi ý:</strong> xem các dòng có nhắc đến mục này trong bảng kết quả bên dưới.</p>
+                  {% endif %}
+                </div>
+              {% else %}
+                <p class="aspect-empty">Chưa phát hiện review nhắc rõ đến khía cạnh này.</p>
+              {% endif %}
+            </article>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+
+    {% if table_preview %}
+      <section class="card wide result-card">
+        <div class="card-title-row">
+          <span class="step">04</span>
+          <h2>Danh sách đã đánh giá</h2>
+        </div>
+        <div class="result-filter" aria-label="Lọc danh sách đã đánh giá">
+          <button type="button" class="active" data-filter="all">Tất cả</button>
+          <button type="button" data-filter="Hài lòng">Hài lòng</button>
+          <button type="button" data-filter="Trung lập">Trung lập</button>
+          <button type="button" data-filter="Không hài lòng">Không hài lòng</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                {% for key in table_preview[0].keys() %}
+                  <th>{{ key }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in table_preview %}
+                <tr data-sentiment="{{ row['Kết quả cảm xúc'] }}">
+                  {% for key, value in row.items() %}
+                    <td>
+                      {% if key == 'Kết quả cảm xúc' %}
+                        <span class="result-pill {{ 'positive' if value == 'Hài lòng' else 'neutral' if value == 'Trung lập' else 'negative' }}">{{ value }}</span>
+                      {% else %}
+                        {{ value }}
+                      {% endif %}
+                    </td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    {% endif %}
+  </main>
+  <script>
+    document.querySelectorAll('.result-filter').forEach((filter) => {
+      const buttons = filter.querySelectorAll('button');
+      const table = filter.nextElementSibling?.querySelector('tbody');
+
+      if (!table) return;
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const selected = button.dataset.filter;
+
+          buttons.forEach((item) => item.classList.toggle('active', item === button));
+          table.querySelectorAll('tr').forEach((row) => {
+            row.hidden = selected !== 'all' && row.dataset.sentiment !== selected;
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

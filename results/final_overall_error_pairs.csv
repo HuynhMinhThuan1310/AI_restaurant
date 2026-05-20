@@ -1,0 +1,7 @@
+sentiment_label,pred_sentiment_label,count,pair
+positive,neutral,168,positive -> neutral
+neutral,positive,166,neutral -> positive
+negative,neutral,74,negative -> neutral
+neutral,negative,48,neutral -> negative
+positive,negative,32,positive -> negative
+negative,positive,12,negative -> positive

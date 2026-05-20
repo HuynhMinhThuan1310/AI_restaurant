@@ -1,0 +1,81 @@
+{
+  "dataset": "vietnamese-restaurant-review-sentiment-dataset",
+  "data_root": "/kaggle/input/datasets/thuanminh1310/restaurant/vietnamese-restaurant-review-sentiment-dataset",
+  "task": "3-class Vietnamese restaurant review sentiment classification",
+  "approach": "Classical ML: TF-IDF word/char features + overall-metric model selection",
+  "label_map": {
+    "0": "negative",
+    "1": "positive",
+    "2": "neutral"
+  },
+  "sentiment_labels_order": [
+    "negative",
+    "neutral",
+    "positive"
+  ],
+  "selection_score_weights": {
+    "macro_f1": 0.4,
+    "weighted_f1": 0.35,
+    "accuracy": 0.25
+  },
+  "best_validation_config": "linear_svc_c05__neutral_x1p25__os1p0",
+  "best_config_details": {
+    "classifier_name": "linear_svc_c05",
+    "neutral_weight_scale": 1.25,
+    "neutral_oversample_factor": 1.0,
+    "class_weight": {
+      "negative": 1.7435060519515844,
+      "neutral": 2.037248919399949,
+      "positive": 0.5516113764467966
+    }
+  },
+  "final_class_weight": {
+    "negative": 1.743538526723564,
+    "neutral": 2.038743559254855,
+    "positive": 0.5514712920950358
+  },
+  "cleaning_stats": {
+    "train_before": 26170,
+    "validation_before": 3271,
+    "test_before": 3272,
+    "conflicting_review_texts_removed": 32,
+    "train_after": 25640,
+    "validation_after": 3165,
+    "test_after": 3137
+  },
+  "final_test_metrics": {
+    "split": "final_test",
+    "accuracy": 0.8406120497290405,
+    "macro_f1": 0.8038434618663985,
+    "weighted_f1": 0.8416887726236059,
+    "negative_precision": 0.8657718120805369,
+    "negative_recall": 0.8571428571428571,
+    "negative_f1": 0.8614357262103506,
+    "negative_support": 602,
+    "neutral_precision": 0.6366366366366366,
+    "neutral_recall": 0.664576802507837,
+    "neutral_f1": 0.6503067484662577,
+    "neutral_support": 638,
+    "positive_precision": 0.9050666666666667,
+    "positive_recall": 0.8945703742751713,
+    "positive_f1": 0.8997879109225875,
+    "positive_support": 1897
+  },
+  "output_files": {
+    "model": "/kaggle/working/tfidf_restaurant_review_3class_final_overall_model.joblib",
+    "validation_results": "/kaggle/working/final_overall_validation_results.csv",
+    "metrics": "/kaggle/working/final_overall_metrics.csv",
+    "classification_report": "/kaggle/working/final_overall_classification_report.csv",
+    "class_metrics": "/kaggle/working/final_overall_class_metrics.csv",
+    "confusion_matrix": "/kaggle/working/final_overall_confusion_matrix.csv",
+    "confusion_matrix_normalized": "/kaggle/working/final_overall_confusion_matrix_normalized.csv",
+    "predictions": "/kaggle/working/final_overall_predictions.csv",
+    "error_pairs": "/kaggle/working/final_overall_error_pairs.csv",
+    "class_distribution_chart": "/kaggle/working/final_overall_class_distribution.png",
+    "validation_comparison_chart": "/kaggle/working/final_overall_validation_model_comparison.png",
+    "class_metrics_chart": "/kaggle/working/final_overall_final_test_class_metrics.png",
+    "confusion_matrix_counts_chart": "/kaggle/working/final_overall_final_test_confusion_matrix_counts.png",
+    "confusion_matrix_normalized_chart": "/kaggle/working/final_overall_final_test_confusion_matrix_normalized.png",
+    "error_pairs_chart": "/kaggle/working/final_overall_final_test_error_pairs.png"
+  }
+}
