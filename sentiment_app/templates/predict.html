@@ -20,10 +20,38 @@
     </nav>
   </header>
 
-  <main class="page predict-page">
-    <section class="predict-hero-compact">
-      <h1>Đánh giá review nhà hàng.</h1>
-      <p class="subtitle">Nhập một review hoặc tải Excel/CSV để nhận kết quả.</p>
+  <main class="page predict-page predict-redesign">
+    <section class="predict-hero-compact predict-hero-pro reveal-up">
+      <div class="predict-hero-copy">
+        <p class="predict-kicker"><span></span>AI phân tích review tiếng Việt</p>
+        <h1>Biến phản hồi nhà hàng thành tín hiệu vận hành rõ ràng.</h1>
+        <p class="subtitle">Nhập một review hoặc tải Excel/CSV để phân loại cảm xúc, tách khía cạnh món ăn, phục vụ, không gian, giá cả và xuất kết quả cho đội vận hành.</p>
+        <div class="predict-hero-actions" aria-label="Lối tắt thao tác">
+          <a class="predict-cta" href="#single-review">Phân tích ngay</a>
+          <a class="predict-secondary" href="#batch-upload">Tải file hàng loạt</a>
+        </div>
+      </div>
+
+      <div class="predict-hero-visual" aria-label="Mô phỏng bảng phân tích cảm xúc">
+        <img class="predict-motion-photo" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1100&q=84" alt="Đầu bếp hoàn thiện món ăn trong nhà hàng hiện đại" loading="eager">
+        <div class="sentiment-orbit" aria-hidden="true">
+          <span class="orbit-dot orbit-positive">Hài lòng</span>
+          <span class="orbit-dot orbit-neutral">Trung lập</span>
+          <span class="orbit-dot orbit-negative">Cần chú ý</span>
+        </div>
+        <div class="live-dashboard-card">
+          <div class="live-dashboard-top">
+            <span>Live analysis</span>
+            <strong>Vietnamese ML</strong>
+          </div>
+          <div class="live-review-line">“Món ngon, phục vụ nhanh nhưng không gian hơi ồn.”</div>
+          <div class="live-bars">
+            <div><span>Món ăn</span><i style="--score: 88%"></i><em>88%</em></div>
+            <div><span>Phục vụ</span><i style="--score: 74%"></i><em>74%</em></div>
+            <div><span>Không gian</span><i style="--score: 42%"></i><em>42%</em></div>
+          </div>
+        </div>
+      </div>
     </section>
 
     {% if error %}
@@ -36,12 +64,15 @@
       </aside>
 
       <div class="predict-grid review-console-actions">
-        <article class="card input-card">
+        <article id="single-review" class="card input-card pro-input-card reveal-up">
           <div class="card-title-row">
             <span class="step">01</span>
-            <h2>Một review</h2>
+            <div>
+              <h2>Một review</h2>
+              <p>Kiểm tra nhanh phản hồi mới trước khi phản hồi khách.</p>
+            </div>
           </div>
-          <form method="post">
+          <form method="post" action="{{ url_for('predict') }}#single-review" data-preserve-scroll data-ajax-predict>
             <input type="hidden" name="action" value="predict_text">
             <label for="text">Nhập review</label>
             <textarea id="text" name="text" rows="6" placeholder="Ví dụ: Món ăn ngon, phục vụ nhanh nhưng không gian hơi ồn.">{{ single_text }}</textarea>
@@ -56,15 +87,22 @@
           {% endif %}
         </article>
 
-        <article class="card input-card accent-card">
+        <article id="batch-upload" class="card input-card accent-card pro-input-card reveal-up">
           <div class="card-title-row">
             <span class="step">02</span>
-            <h2>File Excel/CSV</h2>
+            <div>
+              <h2>File Excel/CSV</h2>
+              <p>Xử lý hàng loạt review từ kênh đặt bàn, form khảo sát hoặc file tổng hợp.</p>
+            </div>
           </div>
-          <form method="post" enctype="multipart/form-data">
+          <form method="post" action="{{ url_for('predict') }}#batch-upload" enctype="multipart/form-data" data-preserve-scroll data-ajax-predict>
             <input type="hidden" name="action" value="predict_file">
             <label for="file">Tải file</label>
-            <input id="file" name="file" type="file" accept=".xlsx,.xls,.csv">
+            <div class="upload-zone">
+              <input id="file" name="file" type="file" accept=".xlsx,.xls,.csv">
+              <span class="upload-visual" aria-hidden="true"></span>
+              <strong>Kéo thả hoặc chọn file dữ liệu</strong>
+            </div>
             <p class="hint">Cột nội dung: review, comment, content hoặc text.</p>
             <button type="submit">Đánh giá file</button>
           </form>
@@ -191,23 +229,183 @@
     {% endif %}
   </main>
   <script>
-    document.querySelectorAll('.result-filter').forEach((filter) => {
-      const buttons = filter.querySelectorAll('button');
-      const table = filter.nextElementSibling?.querySelector('tbody');
+    const scrollMemoryKey = 'reviewsense:predict-scroll';
+    const predictMainSelector = '.predict-page';
+    const savedScroll = sessionStorage.getItem(scrollMemoryKey);
 
-      if (!table) return;
+    if (savedScroll) {
+      sessionStorage.removeItem(scrollMemoryKey);
+      try {
+        const payload = JSON.parse(savedScroll);
+        const isFresh = Date.now() - payload.time < 60000;
+        const target = payload.target ? document.querySelector(payload.target) : null;
 
-      buttons.forEach((button) => {
-        button.addEventListener('click', () => {
-          const selected = button.dataset.filter;
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
-          buttons.forEach((item) => item.classList.toggle('active', item === button));
-          table.querySelectorAll('tr').forEach((row) => {
-            row.hidden = selected !== 'all' && row.dataset.sentiment !== selected;
+        if (isFresh) {
+          const restoreScroll = () => {
+            if (Number.isFinite(payload.y)) {
+              window.scrollTo({ top: payload.y, behavior: 'auto' });
+            } else if (target) {
+              target.scrollIntoView({ block: 'start', behavior: 'auto' });
+            }
+          };
+
+          requestAnimationFrame(() => requestAnimationFrame(restoreScroll));
+          window.addEventListener('load', restoreScroll, { once: true });
+        }
+      } catch (error) {
+        sessionStorage.removeItem(scrollMemoryKey);
+      }
+    }
+
+    function rememberScroll(form) {
+      const section = form.closest('article');
+      const payload = {
+        y: window.scrollY,
+        target: section?.id ? `#${section.id}` : '',
+        time: Date.now(),
+      };
+
+      sessionStorage.setItem(scrollMemoryKey, JSON.stringify(payload));
+    }
+
+    function setupPredictForms(root = document) {
+      root.querySelectorAll('[data-preserve-scroll]').forEach((form) => {
+        if (form.dataset.scrollBound) return;
+        form.dataset.scrollBound = 'true';
+
+        form.addEventListener('submit', () => rememberScroll(form));
+      });
+
+      root.querySelectorAll('[data-ajax-predict]').forEach((form) => {
+        if (form.dataset.ajaxBound) return;
+        form.dataset.ajaxBound = 'true';
+
+        form.addEventListener('submit', async (event) => {
+          if (!window.fetch || !window.FormData || !window.DOMParser) return;
+
+          event.preventDefault();
+
+          const scroll = { x: window.scrollX, y: window.scrollY };
+          const button = event.submitter || form.querySelector('button[type="submit"]');
+          const originalText = button?.textContent;
+
+          if (button) {
+            button.disabled = true;
+            button.textContent = 'Đang đánh giá...';
+          }
+
+          try {
+            const actionUrl = new URL(form.action || window.location.href, window.location.href);
+            actionUrl.hash = '';
+
+            const response = await fetch(actionUrl.toString(), {
+              method: 'POST',
+              body: new FormData(form),
+              headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            });
+
+            if (!response.ok) throw new Error(`Request failed: ${response.status}`);
+
+            const html = await response.text();
+            const nextDocument = new DOMParser().parseFromString(html, 'text/html');
+            const currentMain = document.querySelector(predictMainSelector);
+            const nextMain = nextDocument.querySelector(predictMainSelector);
+
+            if (!currentMain || !nextMain) throw new Error('Predict content not found');
+
+            sessionStorage.removeItem(scrollMemoryKey);
+            currentMain.replaceWith(nextMain);
+            window.scrollTo(scroll.x, scroll.y);
+            setupPredictInteractions(nextMain, { instantReveal: true });
+            history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+          } catch (error) {
+            rememberScroll(form);
+            form.submit();
+          } finally {
+            if (button?.isConnected) {
+              button.disabled = false;
+              if (originalText) button.textContent = originalText;
+            }
+          }
+        });
+      });
+    }
+
+    function setupReveal(root = document, options = {}) {
+      const revealTargets = root.querySelectorAll('.reveal-up');
+
+      revealTargets.forEach((target) => target.classList.add('is-ready'));
+
+      if (options.instantReveal) {
+        revealTargets.forEach((target) => target.classList.add('is-visible'));
+        return;
+      }
+
+      if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.16, rootMargin: '0px 0px -60px 0px' });
+
+        revealTargets.forEach((target) => revealObserver.observe(target));
+      } else {
+        revealTargets.forEach((target) => target.classList.add('is-visible'));
+      }
+    }
+
+    function setupUploadZones(root = document) {
+      root.querySelectorAll('.upload-zone input[type="file"]').forEach((input) => {
+        if (input.dataset.uploadBound) return;
+        input.dataset.uploadBound = 'true';
+
+        const zone = input.closest('.upload-zone');
+        const label = zone?.querySelector('strong');
+
+        input.addEventListener('change', () => {
+          const fileName = input.files?.[0]?.name;
+          if (label && fileName) label.textContent = fileName;
+          zone?.classList.toggle('has-file', Boolean(fileName));
+        });
+      });
+    }
+
+    function setupResultFilters(root = document) {
+      root.querySelectorAll('.result-filter').forEach((filter) => {
+        if (filter.dataset.filterBound) return;
+        filter.dataset.filterBound = 'true';
+
+        const buttons = filter.querySelectorAll('button');
+        const table = filter.nextElementSibling?.querySelector('tbody');
+
+        if (!table) return;
+
+        buttons.forEach((button) => {
+          button.addEventListener('click', () => {
+            const selected = button.dataset.filter;
+
+            buttons.forEach((item) => item.classList.toggle('active', item === button));
+            table.querySelectorAll('tr').forEach((row) => {
+              row.hidden = selected !== 'all' && row.dataset.sentiment !== selected;
+            });
           });
         });
       });
-    });
+    }
+
+    function setupPredictInteractions(root = document, options = {}) {
+      setupPredictForms(root);
+      setupReveal(root, options);
+      setupUploadZones(root);
+      setupResultFilters(root);
+    }
+
+    setupPredictInteractions();
   </script>
 </body>
 </html>

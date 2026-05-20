@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Review Sense - Phân tích đánh giá nhà hàng</title>
+  <meta name="description" content="Review Sense phân tích cảm xúc đánh giá nhà hàng tiếng Việt, hỗ trợ nhập từng review, xử lý Excel/CSV và xem nhận xét theo khía cạnh.">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+      <a class="brand" href="{{ url_for('index') }}">
+        <span class="brand-mark">RS</span>
+        <span>Review Sense</span>
+      </a>
+      <nav class="nav">
+        <a class="active" href="{{ url_for('index') }}">Trang chủ</a>
+        <a href="#features">Tính năng</a>
+        <a href="#how-it-works">Cách dùng</a>
+        <a href="{{ url_for('predict') }}">Đánh giá</a>
+      </nav>
+  </header>
+
+  <main id="top" class="rs-landing">
+    <div class="rs-noise" aria-hidden="true"></div>
+
+    <section class="rs-hero">
+      <div class="rs-container rs-hero-grid">
+        <div class="rs-hero-copy reveal">
+          <p class="rs-eyebrow"><span></span>Phân tích review nhà hàng tiếng Việt</p>
+          <h1>Biến review khách hàng thành tín hiệu vận hành.</h1>
+          <p class="rs-lead">Review Sense phân loại cảm xúc, nhận diện các khía cạnh như món ăn, phục vụ, không gian, giá cả và xuất kết quả rõ ràng cho từng file đánh giá.</p>
+          <div class="rs-actions">
+            <a class="rs-btn rs-btn-primary" href="{{ url_for('predict') }}">Bắt đầu đánh giá</a>
+            <a class="rs-btn rs-btn-secondary" href="#how-it-works">Xem quy trình</a>
+          </div>
+          <div class="rs-trust" aria-label="Khả năng của hệ thống">
+            <span><i></i>Nhập từng review</span>
+            <span><i></i>Tải Excel/CSV</span>
+            <span><i></i>Nhận xét theo khía cạnh</span>
+          </div>
+        </div>
+
+        <div class="rs-product-stage reveal" aria-label="Minh họa sản phẩm">
+          <div class="rs-app-window">
+            <div class="rs-window-bar">
+              <div class="rs-lights"><span></span><span></span><span></span></div>
+              <span>reviews.csv</span>
+            </div>
+            <div class="rs-app-body">
+              <div class="rs-review-box">
+                <div class="rs-input-top"><span>Review mới</span><span>Vietnamese ML</span></div>
+                <p>“Món ăn ngon, nước dùng đậm đà nhưng phục vụ hơi chậm lúc quán đông.”</p>
+                <div class="rs-aspects">
+                  <div><strong>Món ăn</strong><span><i style="width: 88%"></i></span><em>Hài lòng</em></div>
+                  <div><strong>Phục vụ</strong><span><i style="width: 42%"></i></span><em class="warn">Cần chú ý</em></div>
+                  <div><strong>Giá cả</strong><span><i style="width: 64%"></i></span><em>Ổn định</em></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <figure class="rs-photo-card">
+            <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=900&q=84" alt="Không gian vận hành nhà hàng" loading="eager">
+            <figcaption><span>Tín hiệu dịch vụ</span><span>5 khía cạnh</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="rs-section">
+      <div class="rs-container">
+        <div class="rs-section-header reveal">
+          <h2>Thiết kế cho review có nhiều ý trong cùng một câu.</h2>
+          <p>Khách có thể khen món ăn nhưng chê thời gian chờ. Review Sense giúp tách các tín hiệu đó thành thông tin dễ đọc hơn.</p>
+        </div>
+        <div class="rs-feature-grid">
+          <article class="rs-card rs-feature-card reveal">
+            <span class="rs-icon">01</span>
+            <h3>Phân loại cảm xúc tiếng Việt</h3>
+            <p>Dự đoán review thành Không hài lòng, Trung lập hoặc Hài lòng bằng mô hình TF-IDF + LinearSVC đã huấn luyện cho đánh giá nhà hàng.</p>
+          </article>
+          <article class="rs-card rs-feature-card reveal">
+            <span class="rs-icon">02</span>
+            <h3>Nhận xét theo khía cạnh</h3>
+            <p>Tổng hợp tín hiệu về món ăn, nhân viên, không gian, giá cả và thời gian chờ để biết điểm nào đang tốt hoặc cần chú ý.</p>
+          </article>
+          <article class="rs-card rs-feature-card reveal">
+            <span class="rs-icon">03</span>
+            <h3>Xử lý file thực tế</h3>
+            <p>Tải CSV/XLS/XLSX, tự dò cột review phổ biến, xem kết quả trên web và tải file Excel đã có thêm cột kết quả cảm xúc.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="rs-section">
+      <div class="rs-container rs-showcase">
+        <div class="rs-card rs-image-panel reveal">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=84" alt="Nhà hàng hiện đại với bàn ghế và ánh sáng ấm" loading="lazy">
+        </div>
+        <div class="rs-card rs-workflow reveal">
+          <div class="rs-section-header compact">
+            <h2>Từ review thô đến quyết định tiếp theo.</h2>
+            <p>Một quy trình ngắn, phù hợp với cách nhà hàng đang thu thập và chia sẻ phản hồi khách hàng.</p>
+          </div>
+          <div class="rs-step"><span>1</span><div><strong>Nhập review hoặc tải file</strong><p>Dán một đánh giá mới hoặc tải bảng CSV/XLSX có nhiều review.</p></div></div>
+          <div class="rs-step"><span>2</span><div><strong>Phân loại cảm xúc và khía cạnh</strong><p>Model dự đoán cảm xúc tổng thể, phần nhận xét chi tiết gom tín hiệu theo món ăn, phục vụ, không gian, giá cả và thời gian chờ.</p></div></div>
+          <div class="rs-step"><span>3</span><div><strong>Xem bảng và tải kết quả</strong><p>Lọc danh sách theo từng nhãn cảm xúc, sau đó tải file Excel để lưu hoặc gửi cho nhóm vận hành.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="insights" class="rs-section rs-insight-section">
+      <div class="rs-container">
+        <div class="rs-section-header reveal">
+          <h2>Một màn hình cho cả tổng quan và chi tiết.</h2>
+          <p>Sau khi xử lý file, hệ thống hiển thị biểu đồ phân bổ cảm xúc, nhận xét theo khía cạnh và bảng kết quả có bộ lọc.</p>
+        </div>
+        <div class="rs-insight-grid">
+          <article class="rs-card rs-insight reveal">
+            <span>Biểu đồ tổng quan</span>
+            <strong>33.3%</strong>
+            <p>So sánh nhanh tỷ lệ Hài lòng, Trung lập và Không hài lòng.</p>
+          </article>
+          <article class="rs-card rs-insight reveal">
+            <span>Khía cạnh cần chú ý</span>
+            <strong>Phục vụ</strong>
+            <p>Dò các từ khóa như chậm, thái độ, phục vụ lâu để hỗ trợ đọc file nhanh hơn.</p>
+          </article>
+          <article class="rs-card rs-insight reveal">
+            <span>Bảng kết quả</span>
+            <strong>Bộ lọc</strong>
+            <p>Chọn Hài lòng, Trung lập hoặc Không hài lòng để xem đúng nhóm review cần kiểm tra.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="rs-section">
+      <div class="rs-container">
+        <div class="rs-section-header center reveal">
+          <h2>Câu hỏi thường gặp.</h2>
+          <p>Những điểm cần biết trước khi phân tích file review đầu tiên.</p>
+        </div>
+        <div class="rs-faq-list reveal">
+          <article class="rs-faq-item open">
+            <button type="button">File nào được hỗ trợ?<span>+</span></button>
+            <div>Ứng dụng hỗ trợ CSV, XLS và XLSX. Hệ thống tự tìm các cột văn bản như sentence, text, feedback, comment, review hoặc content.</div>
+          </article>
+          <article class="rs-faq-item">
+            <button type="button">Nhận xét chi tiết có phải model mới không?<span>+</span></button>
+            <div>Không cần train thêm. Ứng dụng dùng model cảm xúc hiện tại kết hợp luật từ khóa để gom tín hiệu theo khía cạnh.</div>
+          </article>
+          <article class="rs-faq-item">
+            <button type="button">Có tải kết quả về được không?<span>+</span></button>
+            <div>Có. Sau khi phân tích file, ứng dụng tạo file Excel kết quả với cột sentiment_result để tải về.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="rs-section rs-final-cta">
+      <div class="rs-container rs-cta-panel reveal">
+        <div>
+          <p class="rs-eyebrow"><span></span>Sẵn sàng phân tích</p>
+          <h2>Đưa file review vào và xem tín hiệu chất lượng ngay.</h2>
+          <p>Dùng thử trực tiếp trên app Flask: nhập một review hoặc tải Excel/CSV để nhận kết quả.</p>
+        </div>
+        <a class="rs-btn rs-btn-primary" href="{{ url_for('predict') }}">Mở trang đánh giá</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rs-footer">
+    <div class="rs-container rs-footer-inner">
+      <a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">RS</span><span>Review Sense</span></a>
+      <span>Xây dựng cho phân tích phản hồi nhà hàng tiếng Việt.</span>
+    </div>
+  </footer>
+
+  <script>
+    const revealTargets = document.querySelectorAll('.reveal');
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.16, rootMargin: '0px 0px -40px 0px' });
+
+      revealTargets.forEach((target, index) => {
+        target.style.transitionDelay = `${Math.min(index % 3, 2) * 80}ms`;
+        observer.observe(target);
+      });
+    } else {
+      revealTargets.forEach((target) => target.classList.add('is-visible'));
+    }
+
+    document.querySelectorAll('.rs-faq-item button').forEach((button) => {
+      button.addEventListener('click', () => {
+        button.closest('.rs-faq-item').classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>
