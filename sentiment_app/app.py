@@ -28,42 +28,105 @@ ASPECT_CONFIG = [
     {
         "key": "food",
         "title": "Món ăn",
-        "keywords": ["món", "đồ ăn", "thức ăn", "nước dùng", "hải sản", "cơm", "bún", "phở", "lẩu", "topping"],
-        "positive_terms": ["ngon", "vừa miệng", "tươi", "đậm đà", "hấp dẫn", "nhiều", "chất lượng", "ổn"],
-        "neutral_terms": ["tạm", "bình thường", "không đặc sắc", "được"],
-        "negative_terms": ["dở", "tệ", "nguội", "nhạt", "mặn", "ít", "khô", "quá tệ", "không ngon"],
+        "keywords": [
+            "món", "đồ ăn", "thức ăn", "nước dùng", "nước chấm", "đồ uống", "món chính", "khẩu vị",
+            "hải sản", "cơm", "bún", "phở", "lẩu", "mì", "miến", "gà", "bò", "cá", "thịt", "rau",
+            "bánh", "tráng miệng", "topping", "gia vị", "sốt", "menu",
+        ],
+        "positive_terms": [
+            "ngon", "rất ngon", "ngon miệng", "vừa miệng", "vừa ăn", "tươi", "tươi ngon", "đậm đà",
+            "thơm", "giòn", "mềm", "nóng hổi", "hấp dẫn", "đẹp mắt", "sạch sẽ", "chất lượng",
+            "đầy đặn", "nhiều topping", "nhiều thịt", "khá ngon", "ổn áp", "xuất sắc", "tuyệt vời",
+            "không chê được", "hài lòng",
+        ],
+        "neutral_terms": [
+            "tạm", "tạm ổn", "tạm được", "bình thường", "trung bình", "ổn", "được", "chấp nhận được",
+            "không đặc sắc", "không quá đặc biệt", "không có gì đặc biệt", "vừa phải", "ăn được",
+        ],
+        "negative_terms": [
+            "dở", "tệ", "chán", "không ngon", "quá tệ", "nguội", "nguội lạnh", "nhạt", "nhạt nhẽo",
+            "mặn", "mặn chát", "ngọt gắt", "cay quá", "dầu mỡ", "nhiều dầu", "tanh", "hôi", "khô",
+            "bở", "sống", "cháy", "cũ", "ít", "ít thịt", "ít topping", "không tươi", "không sạch",
+            "không hợp khẩu vị", "không đáng ăn", "thất vọng",
+        ],
     },
     {
         "key": "service",
         "title": "Nhân viên/phục vụ",
-        "keywords": ["nhân viên", "phục vụ", "thái độ", "order", "xử lý", "chu đáo", "nhiệt tình", "dễ thương"],
-        "positive_terms": ["nhiệt tình", "dễ thương", "chu đáo", "nhanh", "thân thiện", "lịch sự", "tốt"],
-        "neutral_terms": ["bình thường", "ổn", "tạm"],
-        "negative_terms": ["thái độ", "chậm", "lâu", "khó chịu", "không thân thiện", "tệ", "sai order", "xử lý chậm"],
+        "keywords": [
+            "nhân viên", "bạn nhân viên", "phục vụ", "thái độ", "order", "gọi món", "xử lý",
+            "chu đáo", "nhiệt tình", "dễ thương", "thu ngân", "bảo vệ", "quản lý", "chủ quán",
+            "staff", "waiter", "waitress", "tư vấn", "hỗ trợ",
+        ],
+        "positive_terms": [
+            "nhiệt tình", "dễ thương", "chu đáo", "nhanh", "nhanh nhẹn", "thân thiện", "niềm nở",
+            "vui vẻ", "lịch sự", "lễ phép", "tận tâm", "chuyên nghiệp", "tốt", "hỗ trợ tốt",
+            "tư vấn kỹ", "xử lý nhanh", "không chậm", "hài lòng",
+        ],
+        "neutral_terms": [
+            "bình thường", "ổn", "tạm", "tạm ổn", "được", "không vấn đề", "đúng quy trình",
+            "không quá nổi bật", "chấp nhận được",
+        ],
+        "negative_terms": [
+            "thái độ", "thái độ kém", "khó chịu", "cau có", "cọc", "bất lịch sự", "không thân thiện",
+            "không nhiệt tình", "hời hợt", "thờ ơ", "lơ khách", "không quan tâm", "chậm", "chậm chạp",
+            "lâu", "phục vụ lâu", "phục vụ chậm", "sai order", "order sai", "quên món", "xử lý chậm",
+            "thiếu chuyên nghiệp", "tệ", "quát", "không xin lỗi", "bỏ mặc khách",
+        ],
     },
     {
         "key": "space",
         "title": "Không gian/địa điểm",
-        "keywords": ["không gian", "quán", "địa điểm", "chỗ ngồi", "bàn ghế", "ồn", "sạch", "đẹp", "đông"],
-        "positive_terms": ["đẹp", "sạch", "thoáng", "rộng", "ấm cúng", "phù hợp", "dễ chịu"],
-        "neutral_terms": ["ổn", "bình thường", "tạm", "đông"],
-        "negative_terms": ["ồn", "bẩn", "chật", "nóng", "không sạch", "đông", "khó chịu"],
+        "keywords": [
+            "không gian", "quán", "địa điểm", "vị trí", "chỗ ngồi", "bàn ghế", "nhà vệ sinh",
+            "gửi xe", "view", "decor", "trang trí", "âm nhạc", "ánh sáng", "máy lạnh", "mùi", "sạch",
+            "đẹp", "đông", "ồn",
+        ],
+        "positive_terms": [
+            "đẹp", "sạch", "sạch sẽ", "thoáng", "thoáng mát", "rộng", "rộng rãi", "ấm cúng",
+            "dễ chịu", "yên tĩnh", "view đẹp", "decor đẹp", "mát", "phù hợp", "gọn gàng", "hài lòng",
+        ],
+        "neutral_terms": ["ổn", "bình thường", "tạm", "tạm ổn", "được", "vừa đủ", "không quá rộng"],
+        "negative_terms": [
+            "ồn", "ồn ào", "bẩn", "không sạch", "chật", "chật chội", "nóng", "bí", "ngột ngạt",
+            "đông", "quá đông", "khó chịu", "hôi", "mùi khó chịu", "nhà vệ sinh bẩn", "thiếu chỗ ngồi",
+            "khó gửi xe", "bàn ghế bẩn", "không thoáng",
+        ],
     },
     {
         "key": "price",
         "title": "Giá cả",
-        "keywords": ["giá", "đắt", "rẻ", "hợp lý", "cao", "phí", "chi phí", "phần ăn"],
-        "positive_terms": ["hợp lý", "rẻ", "đáng tiền", "ổn", "phù hợp"],
-        "neutral_terms": ["tạm", "bình thường"],
-        "negative_terms": ["đắt", "cao", "quá cao", "không đáng", "ít", "mắc"],
+        "keywords": [
+            "giá", "giá cả", "giá tiền", "đắt", "rẻ", "hợp lý", "cao", "mắc", "phí", "chi phí",
+            "hóa đơn", "bill", "voucher", "khuyến mãi", "combo", "phần ăn", "suất", "size",
+        ],
+        "positive_terms": [
+            "hợp lý", "rẻ", "giá tốt", "đáng tiền", "đáng giá", "phù hợp", "vừa túi tiền", "nhiều so với giá",
+            "không đắt", "khuyến mãi tốt", "hài lòng",
+        ],
+        "neutral_terms": ["tạm", "bình thường", "ổn", "tạm ổn", "vừa phải", "chấp nhận được", "không quá đắt"],
+        "negative_terms": [
+            "đắt", "mắc", "cao", "quá cao", "hơi đắt", "khá đắt", "không đáng", "không đáng tiền",
+            "ít", "phần ít", "giá chát", "phụ thu", "tính phí", "bill sai", "không rõ giá",
+        ],
     },
     {
         "key": "wait",
         "title": "Thời gian chờ",
-        "keywords": ["chờ", "đợi", "lâu", "nhanh", "lên món", "món lên", "phục vụ lâu", "phục vụ nhanh"],
-        "positive_terms": ["nhanh", "không phải chờ", "lên nhanh", "phục vụ nhanh"],
-        "neutral_terms": ["ổn", "tạm"],
-        "negative_terms": ["lâu", "chờ lâu", "đợi lâu", "chậm", "phục vụ lâu"],
+        "keywords": [
+            "chờ", "đợi", "lâu", "nhanh", "lên món", "món lên", "ra món", "đợi món", "lên đồ",
+            "phục vụ lâu", "phục vụ nhanh", "xếp hàng", "thời gian", "chờ bàn", "mang món",
+        ],
+        "positive_terms": [
+            "nhanh", "rất nhanh", "lên nhanh", "ra nhanh", "lên món nhanh", "phục vụ nhanh", "không phải chờ",
+            "không chờ lâu", "không lâu", "đúng giờ", "mang món nhanh", "order nhanh",
+        ],
+        "neutral_terms": ["ổn", "tạm", "tạm ổn", "bình thường", "vừa phải", "chấp nhận được"],
+        "negative_terms": [
+            "lâu", "rất lâu", "quá lâu", "chờ lâu", "đợi lâu", "đợi món lâu", "chậm", "lên chậm",
+            "ra chậm", "phục vụ lâu", "phục vụ chậm", "món lên lâu", "xếp hàng lâu", "chờ bàn lâu",
+            "order lâu", "quên món",
+        ],
     },
 ]
 MODEL_TITLE = "Bộ phân tích đánh giá nhà hàng"
@@ -169,16 +232,51 @@ def split_review_segments(text):
 
 
 def contains_any(text, terms):
-    return any(term in text for term in terms)
+    return any(contains_term(text, term) for term in terms)
+
+
+def contains_term(text, term):
+    return re.search(rf"(?<!\w){re.escape(term)}(?!\w)", text) is not None
 
 
 def collect_aspect_terms(cleaned_segment, aspect):
     found = {"positive": [], "neutral": [], "negative": []}
     for label in found:
         for term in aspect[f"{label}_terms"]:
-            if term in cleaned_segment and term not in found[label]:
+            if contains_term(cleaned_segment, term) and term not in found[label]:
                 found[label].append(term)
+    return remove_embedded_terms(found)
+
+
+def remove_embedded_terms(found):
+    matched_terms = [(label, term) for label, terms in found.items() for term in terms]
+    for label, terms in found.items():
+        found[label] = [
+            term
+            for term in terms
+            if not any(
+                other_label != label
+                and term != other_term
+                and term in other_term
+                and len(other_term) > len(term)
+                for other_label, other_term in matched_terms
+            )
+        ]
     return found
+
+
+def infer_aspect_sentiment(model_label, found_terms):
+    scores = {label: len(found_terms[label]) for label in SENTIMENT_LABELS}
+    if not any(scores.values()):
+        return model_label if model_label in SENTIMENT_LABELS else "neutral"
+
+    if scores["negative"] > scores["positive"] and scores["negative"] >= scores["neutral"]:
+        return "negative"
+    if scores["positive"] > scores["negative"] and scores["positive"] >= scores["neutral"]:
+        return "positive"
+    if scores["neutral"] > scores["positive"] and scores["neutral"] > scores["negative"]:
+        return "neutral"
+    return model_label if model_label in SENTIMENT_LABELS else "neutral"
 
 
 def top_terms(counter, limit=4):
@@ -214,14 +312,15 @@ def build_aspect_analysis(texts):
     if records:
         segment_predictions = predict_texts([record["segment"] for record in records])
         for record, prediction in zip(records, segment_predictions):
-            label = str(prediction)
+            found_terms = collect_aspect_terms(record["cleaned_segment"], record["aspect"])
+            label = infer_aspect_sentiment(str(prediction), found_terms)
             aspect_key = record["aspect"]["key"]
             aspect_stats = stats[aspect_key]
             aspect_stats["total"] += 1
             if label in aspect_stats["sentiments"]:
                 aspect_stats["sentiments"][label] += 1
 
-            for term_label, terms in collect_aspect_terms(record["cleaned_segment"], record["aspect"]).items():
+            for term_label, terms in found_terms.items():
                 for term in terms:
                     aspect_stats["terms"][term_label][term] = aspect_stats["terms"][term_label].get(term, 0) + 1
 

@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Review Sense - Phân tích đánh giá nhà hàng</title>
-  <meta name="description" content="Review Sense phân tích cảm xúc đánh giá nhà hàng tiếng Việt, hỗ trợ nhập từng review, xử lý Excel/CSV và xem nhận xét theo khía cạnh.">
+  <title>FoodMood - Phân tích đánh giá nhà hàng</title>
+  <meta name="description" content="FoodMood phân tích cảm xúc đánh giá nhà hàng tiếng Việt, hỗ trợ nhập từng review, xử lý Excel/CSV và xem nhận xét theo khía cạnh.">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <header class="topbar">
       <a class="brand" href="{{ url_for('index') }}">
-        <span class="brand-mark">RS</span>
-        <span>Review Sense</span>
+        <span class="brand-mark">FM</span>
+        <span>FoodMood</span>
       </a>
       <nav class="nav">
         <a class="active" href="{{ url_for('index') }}">Trang chủ</a>
@@ -29,7 +29,7 @@
         <div class="rs-hero-copy reveal">
           <p class="rs-eyebrow"><span></span>Phân tích review nhà hàng tiếng Việt</p>
           <h1>Biến review khách hàng thành tín hiệu vận hành.</h1>
-          <p class="rs-lead">Review Sense phân loại cảm xúc, nhận diện các khía cạnh như món ăn, phục vụ, không gian, giá cả và xuất kết quả rõ ràng cho từng file đánh giá.</p>
+          <p class="rs-lead">FoodMood phân loại cảm xúc, nhận diện các khía cạnh như món ăn, phục vụ, không gian, giá cả và xuất kết quả rõ ràng cho từng file đánh giá.</p>
           <div class="rs-actions">
             <a class="rs-btn rs-btn-primary" href="{{ url_for('predict') }}">Bắt đầu đánh giá</a>
             <a class="rs-btn rs-btn-secondary" href="#how-it-works">Xem quy trình</a>
@@ -71,7 +71,7 @@
       <div class="rs-container">
         <div class="rs-section-header reveal">
           <h2>Thiết kế cho review có nhiều ý trong cùng một câu.</h2>
-          <p>Khách có thể khen món ăn nhưng chê thời gian chờ. Review Sense giúp tách các tín hiệu đó thành thông tin dễ đọc hơn.</p>
+          <p>Khách có thể khen món ăn nhưng chê thời gian chờ. FoodMood giúp tách các tín hiệu đó thành thông tin dễ đọc hơn.</p>
         </div>
         <div class="rs-feature-grid">
           <article class="rs-card rs-feature-card reveal">
@@ -173,7 +173,7 @@
 
   <footer class="rs-footer">
     <div class="rs-container rs-footer-inner">
-      <a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">RS</span><span>Review Sense</span></a>
+      <a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">FM</span><span>FoodMood</span></a>
       <span>Xây dựng cho phân tích phản hồi nhà hàng tiếng Việt.</span>
     </div>
   </footer>

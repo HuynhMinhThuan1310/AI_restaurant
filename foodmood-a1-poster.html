@@ -1,0 +1,656 @@
+
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FoodMood A1 Poster</title>
+  <style>
+    :root {
+      --bg:      oklch(99% 0.002 240);
+      --surface: oklch(100% 0 0);
+      --fg:      oklch(18% 0.012 250);
+      --muted:   oklch(54% 0.012 250);
+      --border:  oklch(92% 0.005 250);
+      --accent:  oklch(58% 0.18 255);
+
+      --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+      --font-body:    -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+      --good: oklch(61% 0.15 150);
+      --warn: oklch(68% 0.14 75);
+      --bad: oklch(58% 0.18 25);
+      --soft-accent: color-mix(in oklch, var(--accent) 10%, var(--surface));
+      --soft-good: color-mix(in oklch, var(--good) 12%, var(--surface));
+      --soft-warn: color-mix(in oklch, var(--warn) 13%, var(--surface));
+      --ink-2: oklch(27% 0.03 250);
+    }
+
+    * { box-sizing: border-box; }
+    html { background: oklch(94% 0.005 250); }
+    body {
+      margin: 0;
+      color: var(--fg);
+      font-family: var(--font-body);
+      background: oklch(94% 0.005 250);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .poster {
+      width: 594mm;
+      min-height: 841mm;
+      margin: 0 auto;
+      padding: 23mm;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 87% 12%, color-mix(in oklch, var(--accent) 14%, transparent), transparent 24%),
+        linear-gradient(180deg, var(--bg), oklch(97% 0.004 250));
+      box-shadow: 0 30px 90px oklch(20% 0.02 250 / 0.18);
+    }
+
+    .poster::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 18mm 18mm;
+      opacity: 0.28;
+      pointer-events: none;
+    }
+
+    .content { position: relative; z-index: 1; }
+    .topline {
+      display: grid;
+      grid-template-columns: 1.1fr auto;
+      gap: 18mm;
+      align-items: start;
+      padding-bottom: 12mm;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .school {
+      display: flex;
+      gap: 7mm;
+      align-items: center;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.35;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 750;
+    }
+
+    .seal {
+      width: 22mm;
+      height: 22mm;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: var(--surface);
+      background: var(--fg);
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      font-size: 24px;
+      flex: none;
+    }
+
+    .owners {
+      text-align: right;
+      font-size: 17px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .owners strong { color: var(--fg); font-size: 19px; }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.06fr 0.94fr;
+      gap: 18mm;
+      align-items: center;
+      padding: 16mm 0 13mm;
+    }
+
+    .kicker {
+      margin: 0 0 7mm;
+      display: inline-flex;
+      align-items: center;
+      gap: 4mm;
+      color: var(--accent);
+      font-size: 18px;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 14mm;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 99px;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 88px;
+      line-height: 0.88;
+      letter-spacing: -0.065em;
+      max-width: 780px;
+    }
+
+    .subtitle {
+      margin: 9mm 0 0;
+      font-size: 28px;
+      line-height: 1.18;
+      color: var(--ink-2);
+      max-width: 690px;
+      text-wrap: pretty;
+    }
+
+    .hero-visual {
+      min-height: 198mm;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--surface);
+      padding: 8mm;
+      position: relative;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      gap: 7mm;
+    }
+
+    .photo-panel {
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      min-height: 122mm;
+      background:
+        linear-gradient(135deg, oklch(86% 0.08 250 / 0.16), oklch(74% 0.12 145 / 0.10)),
+        url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=84') center/cover;
+    }
+
+    .photo-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 30%, oklch(18% 0.03 250 / 0.82));
+    }
+
+    .floating-review {
+      position: absolute;
+      left: 8mm;
+      right: 8mm;
+      bottom: 8mm;
+      z-index: 1;
+      color: var(--surface);
+    }
+
+    .floating-review span { display: block; font-size: 15px; opacity: 0.78; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+    .floating-review strong { display: block; margin-top: 2mm; font-size: 23px; line-height: 1.12; max-width: 430px; }
+
+    .sentiment-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5mm;
+    }
+
+    .chip {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 5mm;
+      background: var(--bg);
+    }
+
+    .chip small { color: var(--muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+    .chip b { display: block; margin-top: 2mm; font-size: 22px; }
+    .chip.good { background: var(--soft-good); }
+    .chip.warn { background: var(--soft-warn); }
+    .chip.bad { background: color-mix(in oklch, var(--bad) 10%, var(--surface)); }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10mm;
+    }
+
+    .section {
+      background: color-mix(in oklch, var(--surface) 92%, transparent);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 8mm;
+    }
+
+    .section.compact { padding: 7mm; }
+    .section h2 {
+      margin: 0 0 5mm;
+      font-size: 30px;
+      letter-spacing: -0.035em;
+      line-height: 1;
+    }
+
+    .section p, .section li {
+      font-size: 18px;
+      line-height: 1.35;
+      color: var(--ink-2);
+    }
+
+    .section p { margin: 0; }
+    ul { margin: 0; padding: 0; list-style: none; }
+    li { margin: 0 0 3mm; padding-left: 7mm; position: relative; }
+    li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.58em;
+      width: 3mm;
+      height: 3mm;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .problem-solution {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6mm;
+    }
+
+    .mini-title {
+      display: block;
+      margin-bottom: 3mm;
+      color: var(--muted);
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 850;
+    }
+
+    .feature-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 5mm;
+    }
+
+    .feature {
+      padding: 5mm;
+      border-radius: 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+
+    .feature b { display: block; margin-bottom: 2mm; font-size: 20px; }
+    .feature span { color: var(--muted); font-size: 16px; line-height: 1.3; }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4mm;
+      align-items: stretch;
+    }
+
+    .pipe-step {
+      min-height: 42mm;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--bg);
+      padding: 5mm;
+      position: relative;
+    }
+
+    .pipe-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: -4.5mm;
+      top: 19mm;
+      width: 5mm;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .pipe-step em { font-style: normal; color: var(--accent); font-weight: 900; font-size: 14px; }
+    .pipe-step strong { display: block; margin: 2mm 0; font-size: 16px; line-height: 1.08; }
+    .pipe-step span { color: var(--muted); font-size: 13px; line-height: 1.25; }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 7mm;
+      align-items: stretch;
+    }
+
+    .scoreboard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4mm;
+    }
+
+    .score {
+      border-radius: 16px;
+      padding: 5mm;
+      background: var(--soft-accent);
+      border: 1px solid color-mix(in oklch, var(--accent) 22%, var(--border));
+    }
+
+    .score b {
+      display: block;
+      font-size: 35px;
+      letter-spacing: -0.055em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .score span { color: var(--muted); font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .bars { display: grid; gap: 3mm; }
+    .bar-row { display: grid; grid-template-columns: 24mm 1fr 17mm; gap: 3mm; align-items: center; font-size: 15px; color: var(--ink-2); }
+    .bar-track { height: 7mm; border-radius: 999px; background: var(--border); overflow: hidden; }
+    .bar-fill { display: block; height: 100%; width: var(--value); border-radius: inherit; background: var(--accent); }
+
+    .mockup {
+      display: grid;
+      grid-template-columns: 0.78fr 1.22fr;
+      gap: 6mm;
+      align-items: stretch;
+    }
+
+    .phone {
+      border: 2px solid var(--fg);
+      border-radius: 26px;
+      padding: 5mm;
+      background: var(--surface);
+      min-height: 126mm;
+    }
+
+    .phone-notch {
+      width: 26mm;
+      height: 5mm;
+      border-radius: 99px;
+      margin: 0 auto 5mm;
+      background: var(--fg);
+    }
+
+    .app-card {
+      border-radius: 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 5mm;
+      margin-bottom: 4mm;
+    }
+
+    .app-card strong { display: block; font-size: 18px; margin-bottom: 3mm; }
+    .app-card p { font-size: 14px; color: var(--muted); }
+
+    .result-pill {
+      display: inline-flex;
+      margin-top: 4mm;
+      padding: 2.5mm 4mm;
+      border-radius: 999px;
+      background: var(--soft-good);
+      color: oklch(34% 0.1 150);
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .chart-card img, .flow-image img {
+      width: 100%;
+      display: block;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .chart-card p, .flow-image p { margin-top: 3mm; color: var(--muted); font-size: 14px; }
+
+    .investment {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5mm;
+    }
+
+    .reason {
+      padding: 6mm;
+      border-radius: 16px;
+      background: var(--fg);
+      color: var(--surface);
+      min-height: 51mm;
+    }
+
+    .reason b { display: block; margin-bottom: 2mm; font-size: 20px; }
+    .reason span { font-size: 16px; line-height: 1.32; color: oklch(87% 0.01 250); }
+
+    .footer {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 10mm;
+      margin-top: 10mm;
+      align-items: stretch;
+    }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4mm;
+    }
+
+    .roadmap div {
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 5mm;
+      background: var(--bg);
+      min-height: 42mm;
+    }
+
+    .roadmap b { display: block; color: var(--accent); margin-bottom: 2mm; font-size: 16px; }
+    .roadmap span { font-size: 14px; line-height: 1.28; color: var(--ink-2); }
+
+    .qr-box {
+      border-radius: 20px;
+      border: 1px solid color-mix(in oklch, var(--accent) 28%, var(--border));
+      background: var(--surface);
+      padding: 7mm;
+      display: grid;
+      grid-template-columns: 44mm 1fr;
+      gap: 5mm;
+      align-items: center;
+      min-height: 58mm;
+    }
+
+    .qr-box img {
+      width: 44mm;
+      height: 44mm;
+      object-fit: contain;
+      image-rendering: pixelated;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .qr-box b { display: block; font-size: 21px; letter-spacing: -0.03em; }
+    .qr-box span { display: block; margin-top: 2mm; color: var(--muted); font-size: 15px; line-height: 1.28; }
+
+    .caption {
+      margin-top: 4mm;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: right;
+    }
+
+    @media print {
+      @page { size: A1 portrait; margin: 0; }
+      html, body { width: 594mm; min-height: 841mm; background: var(--bg); }
+      .poster { margin: 0; box-shadow: none; width: 594mm; min-height: 841mm; }
+    }
+  </style>
+</head>
+<body>
+  <main class="poster" aria-label="Poster A1 FoodMood">
+    <div class="content">
+      <header class="topline">
+        <div class="school">
+          <div class="seal">BK</div>
+          <div>
+            Trường Đại học Bách khoa, Đại học Đà Nẵng<br>
+            Lớp 22KTMT, học phần Trí tuệ nhân tạo
+          </div>
+        </div>
+        <div class="owners">
+          <strong>Nhóm 18</strong><br>
+          LẠI TIẾN ĐẠT, HUỲNH MINH THUẬN, LÊ THÀNH DUY<br>
+          GV hướng dẫn: TS. HOÀNG LÊ UYÊN THỤC
+        </div>
+      </header>
+
+      <section class="hero">
+        <div>
+          <p class="kicker">AI phân tích đánh giá nhà hàng</p>
+          <h1>FoodMood</h1>
+          <p class="subtitle">Biến hàng nghìn review tiếng Việt thành tín hiệu vận hành: hài lòng, trung lập, không hài lòng, kèm kết quả file để nhà hàng ra quyết định nhanh hơn.</p>
+        </div>
+        <aside class="hero-visual" aria-label="Minh họa sản phẩm FoodMood">
+          <div class="photo-panel">
+            <div class="floating-review">
+              <span>Review đầu vào</span>
+              <strong>“Món ăn ngon, phục vụ nhiệt tình nhưng lúc đông khách chờ hơi lâu.”</strong>
+            </div>
+          </div>
+          <div class="sentiment-strip">
+            <div class="chip good"><small>Positive</small><b>Hài lòng</b></div>
+            <div class="chip warn"><small>Neutral</small><b>Trung lập</b></div>
+            <div class="chip bad"><small>Negative</small><b>Không hài lòng</b></div>
+          </div>
+        </aside>
+      </section>
+
+      <div class="main-grid">
+        <section class="section">
+          <h2>01. Vì sao cần sản phẩm này?</h2>
+          <div class="problem-solution">
+            <div>
+              <span class="mini-title">Bài toán</span>
+              <ul>
+                <li>Nhà hàng nhận nhiều phản hồi rời rạc từ form, file Excel, mạng xã hội hoặc ứng dụng đặt món.</li>
+                <li>Đọc thủ công dễ chậm, bỏ sót review tiêu cực và khó tổng hợp xu hướng dịch vụ.</li>
+                <li>Review tiếng Việt thường có nhiều sắc thái, khen và chê xuất hiện trong cùng một câu.</li>
+              </ul>
+            </div>
+            <div>
+              <span class="mini-title">Giải pháp</span>
+              <ul>
+                <li>Phân loại cảm xúc 3 lớp: Không hài lòng, Trung lập, Hài lòng.</li>
+                <li>Cho phép nhập một review hoặc xử lý hàng loạt file CSV/XLS/XLSX.</li>
+                <li>Xuất file kết quả có thêm cột sentiment_result để nhóm vận hành theo dõi.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>02. Sản phẩm làm gì?</h2>
+          <div class="feature-row">
+            <div class="feature"><b>Dự đoán tức thì</b><span>Dán review tiếng Việt và nhận nhãn cảm xúc rõ ràng.</span></div>
+            <div class="feature"><b>Xử lý hàng loạt</b><span>Tải Excel/CSV, tự nhận diện cột review phổ biến.</span></div>
+            <div class="feature"><b>Góc nhìn vận hành</b><span>Theo dõi điểm nóng về món ăn, phục vụ, không gian, giá cả.</span></div>
+            <div class="feature"><b>Kết quả mang đi</b><span>Tải file dự đoán để báo cáo hoặc chuyển cho quản lý nhà hàng.</span></div>
+          </div>
+        </section>
+
+        <section class="section compact">
+          <h2>03. Kiến trúc kỹ thuật end-to-end</h2>
+          <div class="pipeline" aria-label="Pipeline dữ liệu và mô hình">
+            <div class="pipe-step"><em>1</em><strong>Data</strong><span>Vietnamese restaurant review sentiment dataset.</span></div>
+            <div class="pipe-step"><em>2</em><strong>Làm sạch</strong><span>Xóa nhiễu, chuẩn hóa nhãn, loại text mâu thuẫn.</span></div>
+            <div class="pipe-step"><em>3</em><strong>TF-IDF</strong><span>Trích đặc trưng word + character n-gram.</span></div>
+            <div class="pipe-step"><em>4</em><strong>So sánh 30 cấu hình</strong><span>LinearSVC, Logistic Regression, Ridge.</span></div>
+            <div class="pipe-step"><em>5</em><strong>Web App</strong><span>Joblib model, Flask UI, upload file, download kết quả.</span></div>
+          </div>
+        </section>
+
+        <section class="section compact">
+          <h2>04. Bằng chứng tin cậy</h2>
+          <div class="metrics">
+            <div>
+              <div class="scoreboard">
+                <div class="score"><span>Accuracy</span><b>84.06%</b></div>
+                <div class="score"><span>Macro F1</span><b>80.38%</b></div>
+                <div class="score"><span>Weighted F1</span><b>84.17%</b></div>
+              </div>
+              <p style="margin-top:5mm">Mô hình cuối: TF-IDF word/character features + LinearSVC. Dữ liệu sau làm sạch: 25.640 train, 3.165 validation, 3.137 test; loại 32 review có nhãn mâu thuẫn.</p>
+            </div>
+            <div class="bars" aria-label="F1 theo lớp">
+              <div class="bar-row"><span>Positive</span><span class="bar-track"><i class="bar-fill" style="--value:89.98%"></i></span><b>0.900</b></div>
+              <div class="bar-row"><span>Negative</span><span class="bar-track"><i class="bar-fill" style="--value:86.14%"></i></span><b>0.861</b></div>
+              <div class="bar-row"><span>Neutral</span><span class="bar-track"><i class="bar-fill" style="--value:65.03%"></i></span><b>0.650</b></div>
+              <p>Chọn mô hình theo điểm tổng hợp: 40% Macro F1, 35% Weighted F1, 25% Accuracy.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>05. Ứng dụng sản phẩm</h2>
+          <div class="mockup">
+            <div class="phone" aria-label="Mockup giao diện FoodMood">
+              <div class="phone-notch"></div>
+              <div class="app-card"><strong>Nhập review</strong><p>Món ăn ngon, phục vụ nhanh nhưng không gian hơi ồn.</p><span class="result-pill">Hài lòng</span></div>
+              <div class="app-card"><strong>Tải file</strong><p>reviews.xlsx, tự dò cột review, comment, content hoặc text.</p></div>
+              <div class="app-card"><strong>Kết quả</strong><p>Thêm cột sentiment_result và tải về file Excel mới.</p></div>
+            </div>
+            <div>
+              <ul>
+                <li>Quản lý nhà hàng lọc nhanh phản hồi cần xử lý trong ngày.</li>
+                <li>Đội chăm sóc khách hàng ưu tiên review không hài lòng để phản hồi sớm.</li>
+                <li>Chủ quán theo dõi xu hướng chất lượng dịch vụ theo từng đợt khảo sát.</li>
+                <li>Nhóm nghiên cứu mở rộng thành dashboard phân tích trải nghiệm khách hàng.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>06. Hình ảnh hệ thống và kết quả</h2>
+          <div class="mockup">
+            <div class="flow-image">
+              <img src="results/so_do_quy_trinh_phan_loai_cam_xuc.png" alt="Sơ đồ quy trình phân loại cảm xúc">
+              <p>Sơ đồ quy trình: review thô, xử lý, TF-IDF, mô hình, kết quả.</p>
+            </div>
+            <div class="chart-card">
+              <img src="results/final_overall_final_test_confusion_matrix_normalized.png" alt="Ma trận nhầm lẫn chuẩn hóa của mô hình">
+              <p>Ma trận nhầm lẫn giúp kiểm tra độ tin cậy của từng lớp cảm xúc.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" style="grid-column: 1 / -1;">
+          <h2>07. Vì sao nên đầu tư vào FoodMood?</h2>
+          <div class="investment">
+            <div class="reason"><b>Nhu cầu thật</b><span>Nhà hàng luôn cần hiểu khách hàng nhanh hơn thay vì đọc từng dòng phản hồi thủ công.</span></div>
+            <div class="reason"><b>Có sản phẩm chạy được</b><span>Đã có Flask web app, model joblib, nhập một review, upload file và tải kết quả.</span></div>
+            <div class="reason"><b>Dễ mở rộng</b><span>Có thể phát triển thành dashboard theo chi nhánh, cảnh báo review xấu và báo cáo định kỳ.</span></div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="footer">
+        <section class="section compact">
+          <h2>08. Hướng phát triển tương lai</h2>
+          <div class="roadmap">
+            <div><b>Aspect AI</b><span>Tách riêng món ăn, phục vụ, không gian, giá cả, thời gian chờ.</span></div>
+            <div><b>Dashboard</b><span>Biểu đồ theo tuần, chi nhánh, nguồn dữ liệu và xu hướng chất lượng.</span></div>
+            <div><b>API</b><span>Kết nối Google Form, POS, nền tảng đặt bàn hoặc kênh khảo sát.</span></div>
+            <div><b>Model upgrade</b><span>Thử nghiệm PhoBERT/transformer khi có thêm dữ liệu gán nhãn.</span></div>
+          </div>
+        </section>
+        <aside>
+          <div class="qr-box">
+            <img src="results/foodmood_qr.png" alt="QR code FoodMood">
+            <div>
+              <b>Quét QR để xem demo, mã nguồn hoặc báo cáo</b>
+              <span>Đặt ở góc dưới phải theo yêu cầu poster A1. Nội dung QR dùng file đã có trong thư mục results.</span>
+            </div>
+          </div>
+          <p class="caption">A1 dọc 594 × 841 mm, thiết kế để in hoặc xuất PDF.</p>
+        </aside>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

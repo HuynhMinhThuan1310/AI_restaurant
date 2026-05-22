@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: review-sense
+    name: foodmood
     env: python
     plan: free
     buildCommand: pip install -r sentiment_app/requirements.txt

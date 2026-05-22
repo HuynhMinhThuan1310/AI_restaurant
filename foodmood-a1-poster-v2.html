@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FoodMood - Poster A1</title>
+  <style>
+    :root {
+      --bg:      oklch(99% 0.002 240);
+      --surface: oklch(100% 0 0);
+      --fg:      oklch(18% 0.012 250);
+      --muted:   oklch(54% 0.012 250);
+      --border:  oklch(92% 0.005 250);
+      --accent:  oklch(58% 0.18 255);
+
+      --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+      --font-body:    -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+      --ok: oklch(58% 0.16 145);
+      --warn: oklch(68% 0.15 70);
+      --bad: oklch(58% 0.17 24);
+      --blue-soft: oklch(96% 0.025 255);
+      --green-soft: oklch(96% 0.026 150);
+      --amber-soft: oklch(96% 0.04 78);
+      --ink-soft: oklch(27% 0.025 250);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      min-height: 100%;
+      background: color-mix(in oklch, var(--bg), var(--border) 45%);
+    }
+
+    body {
+      margin: 0;
+      color: var(--fg);
+      font-family: var(--font-body);
+      background:
+        radial-gradient(circle at 10% 2%, color-mix(in oklch, var(--accent), transparent 82%), transparent 28%),
+        linear-gradient(180deg, var(--bg), oklch(98% 0.006 250));
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    .poster-shell {
+      width: min(100%, 1188px);
+      margin: 0 auto;
+      padding: 22px;
+    }
+
+    .poster {
+      position: relative;
+      width: 100%;
+      min-height: 1682px;
+      padding: 54px;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, color-mix(in oklch, var(--border), transparent 70%) 1px, transparent 1px),
+        linear-gradient(180deg, color-mix(in oklch, var(--border), transparent 72%) 1px, transparent 1px),
+        var(--surface);
+      background-size: 44px 44px;
+      border: 1px solid var(--border);
+      box-shadow: 0 26px 80px color-mix(in oklch, var(--fg), transparent 88%);
+    }
+
+    .poster::before {
+      content: "";
+      position: absolute;
+      inset: -160px -220px auto auto;
+      width: 520px;
+      height: 520px;
+      border-radius: 999px;
+      background: radial-gradient(circle, color-mix(in oklch, var(--accent), transparent 72%), transparent 68%);
+      pointer-events: none;
+    }
+
+    .topbar,
+    .hero,
+    .content-grid,
+    .footer-band { position: relative; z-index: 1; }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: 92px 1fr auto;
+      gap: 22px;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .seal {
+      display: grid;
+      place-items: center;
+      width: 92px;
+      height: 92px;
+      border: 1px solid color-mix(in oklch, var(--accent), var(--border) 72%);
+      border-radius: 26px;
+      background: linear-gradient(145deg, var(--surface), var(--blue-soft));
+      color: var(--accent);
+      font-family: var(--font-display);
+      font-size: 25px;
+      font-weight: 850;
+      letter-spacing: -0.06em;
+    }
+
+    .school {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .school strong,
+    .meta-pill,
+    .kicker,
+    .section-label,
+    .small-label,
+    .metric small,
+    .caption {
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    .school strong {
+      font-size: 15px;
+      color: var(--fg);
+    }
+
+    .school span {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .meta-pill {
+      justify-self: end;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: color-mix(in oklch, var(--surface), var(--blue-soft) 55%);
+      color: var(--ink-soft);
+      font-size: 12px;
+      font-weight: 760;
+      white-space: nowrap;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 34px;
+      align-items: stretch;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .kicker,
+    .section-label,
+    .small-label,
+    .caption {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 820;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    h1 {
+      margin-top: 10px;
+      font-family: var(--font-display);
+      font-size: clamp(64px, 8vw, 96px);
+      line-height: 0.9;
+      letter-spacing: -0.07em;
+      text-wrap: balance;
+    }
+
+    .subtitle {
+      max-width: 640px;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 23px;
+      line-height: 1.28;
+      letter-spacing: -0.025em;
+    }
+
+    .owners {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 26px;
+      max-width: 610px;
+    }
+
+    .owner-chip {
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: color-mix(in oklch, var(--surface), var(--bg) 55%);
+      font-size: 14px;
+      font-weight: 720;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-panel {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 20px;
+      padding: 24px;
+      border: 1px solid color-mix(in oklch, var(--accent), var(--border) 70%);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 82% 14%, color-mix(in oklch, var(--accent), transparent 76%), transparent 36%),
+        linear-gradient(145deg, var(--blue-soft), var(--surface) 58%);
+    }
+
+    .phone-mock {
+      align-self: stretch;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 14px;
+      min-height: 360px;
+      padding: 20px;
+      border-radius: 30px;
+      background: oklch(17% 0.02 250);
+      color: oklch(98% 0.006 250);
+      box-shadow: inset 0 0 0 1px oklch(34% 0.02 250);
+    }
+
+    .phone-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: oklch(76% 0.012 250);
+      font-size: 11px;
+      font-weight: 760;
+    }
+
+    .search-box {
+      min-height: 88px;
+      padding: 14px;
+      border: 1px solid oklch(36% 0.024 250);
+      border-radius: 18px;
+      background: oklch(23% 0.02 250);
+      color: oklch(86% 0.01 250);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .result-card {
+      display: grid;
+      gap: 10px;
+      align-content: center;
+      padding: 18px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, color-mix(in oklch, var(--ok), oklch(16% 0.02 250) 68%), oklch(21% 0.02 250));
+    }
+
+    .result-card strong {
+      font-size: 35px;
+      letter-spacing: -0.05em;
+    }
+
+    .confidence {
+      height: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: oklch(31% 0.02 250);
+    }
+
+    .confidence span {
+      display: block;
+      width: 89%;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--ok);
+    }
+
+    .mini-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .mini-tabs span {
+      padding: 9px 7px;
+      border-radius: 13px;
+      background: oklch(24% 0.02 250);
+      color: oklch(76% 0.012 250);
+      font-size: 11px;
+      font-weight: 750;
+      text-align: center;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .hero-stat {
+      padding: 13px 12px;
+      border: 1px solid color-mix(in oklch, var(--accent), var(--border) 78%);
+      border-radius: 18px;
+      background: color-mix(in oklch, var(--surface), var(--blue-soft) 65%);
+    }
+
+    .hero-stat b {
+      display: block;
+      color: var(--accent);
+      font-size: 25px;
+      letter-spacing: -0.05em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hero-stat span {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 720;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 28px;
+    }
+
+    .module {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      background: color-mix(in oklch, var(--surface), var(--bg) 46%);
+    }
+
+    .module.dark {
+      background: linear-gradient(145deg, oklch(18% 0.018 250), oklch(24% 0.026 255));
+      color: oklch(98% 0.004 250);
+      border-color: oklch(33% 0.025 250);
+    }
+
+    .module.dark .section-label,
+    .module.dark .small-label { color: oklch(75% 0.14 255); }
+    .module.dark p,
+    .module.dark li { color: oklch(78% 0.012 250); }
+
+    .module.wide { grid-column: 1 / -1; }
+
+    .module h2 {
+      margin-top: 7px;
+      font-family: var(--font-display);
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      text-wrap: balance;
+    }
+
+    .module p,
+    .module li {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.38;
+    }
+
+    .module p { margin-top: 12px; }
+
+    ul {
+      margin: 16px 0 0;
+      padding-left: 18px;
+    }
+
+    li + li { margin-top: 8px; }
+
+    .callout {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 20px;
+      background: var(--blue-soft);
+      color: var(--fg);
+      font-size: 18px;
+      line-height: 1.25;
+      letter-spacing: -0.025em;
+      font-weight: 760;
+    }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .step {
+      position: relative;
+      min-height: 132px;
+      padding: 16px 14px;
+      border: 1px solid oklch(33% 0.025 250);
+      border-radius: 20px;
+      background: oklch(22% 0.022 250);
+    }
+
+    .step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: -12px;
+      top: 50%;
+      width: 12px;
+      height: 1px;
+      background: oklch(53% 0.12 255);
+    }
+
+    .step b {
+      display: block;
+      margin-top: 18px;
+      color: oklch(98% 0.004 250);
+      font-size: 16px;
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+    }
+
+    .step span {
+      color: oklch(72% 0.014 250);
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .feature {
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--surface);
+    }
+
+    .feature b {
+      display: block;
+      font-size: 18px;
+      letter-spacing: -0.025em;
+    }
+
+    .feature span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--accent);
+      font-size: 38px;
+      letter-spacing: -0.06em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .metric small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .bars {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 92px 1fr 50px;
+      gap: 10px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 760;
+    }
+
+    .bar-track {
+      height: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: var(--border);
+    }
+
+    .bar-track span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--accent);
+    }
+
+    .bar-track.good span { background: var(--ok); }
+    .bar-track.warn span { background: var(--warn); }
+    .bar-track.bad span { background: var(--bad); }
+
+    .evidence-map {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .evidence-box {
+      padding: 18px;
+      border-radius: 22px;
+      background: color-mix(in oklch, var(--surface), var(--blue-soft) 42%);
+      border: 1px solid var(--border);
+    }
+
+    .evidence-box b {
+      display: block;
+      font-size: 18px;
+      letter-spacing: -0.025em;
+    }
+
+    .evidence-box span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .investment {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .investment div {
+      padding: 16px;
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .investment b {
+      display: block;
+      font-size: 17px;
+      letter-spacing: -0.02em;
+    }
+
+    .investment span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .roadmap-item {
+      padding: 17px;
+      border-radius: 20px;
+      background: oklch(22% 0.022 250);
+      border: 1px solid oklch(34% 0.025 250);
+    }
+
+    .roadmap-item b {
+      display: block;
+      color: oklch(98% 0.004 250);
+      font-size: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .roadmap-item span {
+      display: block;
+      margin-top: 8px;
+      color: oklch(74% 0.014 250);
+      font-size: 12px;
+      line-height: 1.28;
+    }
+
+    .footer-band {
+      display: grid;
+      grid-template-columns: 1fr 190px;
+      gap: 24px;
+      align-items: end;
+      margin-top: 24px;
+      padding: 24px;
+      border: 1px solid color-mix(in oklch, var(--accent), var(--border) 72%);
+      border-radius: 30px;
+      background: linear-gradient(135deg, var(--blue-soft), var(--surface));
+    }
+
+    .qr-card {
+      justify-self: end;
+      width: 190px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--surface);
+      text-align: center;
+    }
+
+    .qr-card img {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 8px;
+    }
+
+    .qr-card b {
+      display: block;
+      font-size: 12px;
+      color: var(--fg);
+    }
+
+    .qr-card span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.25;
+    }
+
+    .footer-copy h2 {
+      font-size: 33px;
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+
+    .footer-copy p {
+      max-width: 760px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .print-note {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    @media (max-width: 900px) {
+      .poster-shell { padding: 0; }
+      .poster {
+        min-height: auto;
+        padding: 28px;
+        border: 0;
+      }
+      .topbar,
+      .hero,
+      .content-grid,
+      .footer-band { grid-template-columns: 1fr; }
+      .meta-pill,
+      .qr-card { justify-self: start; }
+      .owners,
+      .features,
+      .metrics-grid,
+      .evidence-map,
+      .investment,
+      .roadmap,
+      .pipeline { grid-template-columns: 1fr; }
+      .step:not(:last-child)::after { display: none; }
+      h1 { font-size: 58px; }
+    }
+
+    @page {
+      size: A1 portrait;
+      margin: 0;
+    }
+
+    @media print {
+      html, body { width: 594mm; min-height: 841mm; background: var(--surface); }
+      .poster-shell { width: 594mm; padding: 0; }
+      .poster {
+        width: 594mm;
+        min-height: 841mm;
+        padding: 25mm;
+        box-shadow: none;
+        border: 0;
+      }
+      .print-note { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="poster-shell">
+    <article class="poster" aria-label="Poster A1 FoodMood">
+      <header class="topbar">
+        <div class="seal" aria-label="DUT">DUT</div>
+        <div class="school">
+          <strong>Trường Đại học Bách khoa - Đại học Đà Nẵng</strong>
+          <span>Lớp 22KTMT · Học phần Trí tuệ nhân tạo · GV hướng dẫn: TS. Hoàng Lê Uyên Thục</span>
+        </div>
+        <div class="meta-pill">Nhóm 18 · Poster A1 dọc</div>
+      </header>
+
+      <section class="hero">
+        <div>
+          <div class="kicker">Sản phẩm AI phân tích đánh giá nhà hàng</div>
+          <h1>FoodMood</h1>
+          <p class="subtitle">Hệ thống đọc phản hồi tiếng Việt từ khách hàng, phân loại cảm xúc thành Không hài lòng, Trung lập, Hài lòng và biến dữ liệu rời rạc thành tín hiệu vận hành cho quán ăn.</p>
+          <div class="owners" aria-label="Thành viên nhóm">
+            <div class="owner-chip">Lại Tiến Đạt</div>
+            <div class="owner-chip">Huỳnh Minh Thuận</div>
+            <div class="owner-chip">Lê Thành Duy</div>
+            <div class="owner-chip">Nhóm 18</div>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="Mockup sản phẩm">
+          <div class="small-label">Sản phẩm làm gì?</div>
+          <div class="phone-mock">
+            <div class="phone-top"><span>FoodMood</span><span>AI online</span></div>
+            <div class="search-box">“Quán ăn rất ngon, nhân viên nhiệt tình, nhưng chờ món hơi lâu.”</div>
+            <div class="result-card">
+              <span class="small-label">Dự đoán cảm xúc</span>
+              <strong>Hài lòng</strong>
+              <div class="confidence"><span></span></div>
+              <span>Gợi ý xử lý: giữ chất lượng món, cải thiện tốc độ phục vụ.</span>
+            </div>
+            <div class="mini-tabs"><span>Nhập tay</span><span>Upload CSV/XLSX</span><span>Tải kết quả</span></div>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat"><b>84.06%</b><span>Accuracy test</span></div>
+            <div class="hero-stat"><b>80.38%</b><span>Macro F1</span></div>
+            <div class="hero-stat"><b>3</b><span>Nhãn cảm xúc</span></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="content-grid">
+        <div class="module">
+          <div class="section-label">01 · Đặt vấn đề</div>
+          <h2>Đánh giá nhà hàng nhiều, nhưng khó đọc hết.</h2>
+          <p>Chủ quán thường nhận phản hồi từ Google, mạng xã hội, file khảo sát hoặc form nội bộ. Nếu đọc thủ công, dữ liệu đến chậm, dễ bỏ sót phản hồi tiêu cực và khó tổng hợp xu hướng.</p>
+          <div class="callout">FoodMood giúp chuyển từng câu đánh giá thành nhãn cảm xúc rõ ràng để chủ quán ưu tiên xử lý vấn đề.</div>
+        </div>
+
+        <div class="module">
+          <div class="section-label">02 · Giải pháp</div>
+          <h2>AI phân loại cảm xúc dành riêng cho review nhà hàng tiếng Việt.</h2>
+          <ul>
+            <li>Nhận một câu đánh giá hoặc file nhiều dòng.</li>
+            <li>Trả về nhãn: Không hài lòng, Trung lập, Hài lòng.</li>
+            <li>Xuất file kết quả có cột sentiment_result để lọc và báo cáo.</li>
+            <li>Giao diện Flask dễ chạy local, có thể triển khai web.</li>
+          </ul>
+        </div>
+
+        <div class="module dark wide">
+          <div class="section-label">03 · Kiến trúc kỹ thuật end-to-end</div>
+          <h2>Từ dữ liệu thô đến dự đoán trên ứng dụng.</h2>
+          <div class="pipeline">
+            <div class="step"><span>Data</span><b>Vietnamese restaurant review sentiment dataset</b></div>
+            <div class="step"><span>Cleaning</span><b>Làm sạch, bỏ 32 văn bản mâu thuẫn, chia train/validation/test</b></div>
+            <div class="step"><span>Features</span><b>TF-IDF word + character n-gram cho tiếng Việt</b></div>
+            <div class="step"><span>Modeling</span><b>So sánh LinearSVC, Logistic Regression, Ridge với nhiều cấu hình</b></div>
+            <div class="step"><span>Deploy</span><b>Joblib model + Flask app + upload CSV/XLSX</b></div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="section-label">04 · Tính năng sản phẩm</div>
+          <h2>Không chỉ dự đoán, mà giúp vận hành.</h2>
+          <div class="features">
+            <div class="feature"><b>Phân tích từng review</b><span>Nhập một câu phản hồi và nhận nhãn cảm xúc ngay trên web.</span></div>
+            <div class="feature"><b>Xử lý file hàng loạt</b><span>Hỗ trợ .xlsx, .xls, .csv với cột sentence, text, feedback, comment, review hoặc content.</span></div>
+            <div class="feature"><b>Tải kết quả</b><span>File đầu ra có thêm cột sentiment_result để lọc phản hồi cần xử lý.</span></div>
+            <div class="feature"><b>Dashboard nhẹ</b><span>Phù hợp demo tại lớp và có đường phát triển thành báo cáo vận hành.</span></div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="section-label">05 · Vì sao cần sản phẩm?</div>
+          <h2>Phản hồi tiêu cực cần được phát hiện trước khi thành khủng hoảng.</h2>
+          <ul>
+            <li>Nhà hàng có nhiều nguồn bình luận, khó tổng hợp thủ công.</li>
+            <li>Chủ quán cần biết vấn đề nằm ở món ăn, phục vụ, thời gian chờ hay trải nghiệm chung.</li>
+            <li>Phân loại cảm xúc là lớp đầu tiên để xây báo cáo chất lượng dịch vụ.</li>
+          </ul>
+        </div>
+
+        <div class="module wide">
+          <div class="section-label">06 · Bằng chứng tin cậy</div>
+          <h2>Đã huấn luyện, so sánh và kiểm tra bằng dữ liệu thật.</h2>
+          <div class="metrics-grid">
+            <div class="metric"><strong>25,640</strong><small>Mẫu train sau làm sạch</small></div>
+            <div class="metric"><strong>3,165</strong><small>Mẫu validation</small></div>
+            <div class="metric"><strong>3,137</strong><small>Mẫu final test</small></div>
+          </div>
+          <div class="evidence-map">
+            <div>
+              <div class="bars" aria-label="Chỉ số F1 theo lớp">
+                <div class="bar-row"><span>Hài lòng</span><div class="bar-track good"><span style="width: 89.98%"></span></div><span>0.900</span></div>
+                <div class="bar-row"><span>Không hài lòng</span><div class="bar-track bad"><span style="width: 86.14%"></span></div><span>0.861</span></div>
+                <div class="bar-row"><span>Trung lập</span><div class="bar-track warn"><span style="width: 65.03%"></span></div><span>0.650</span></div>
+              </div>
+            </div>
+            <div class="evidence-box">
+              <b>Mô hình cuối: TF-IDF + LinearSVC</b>
+              <span>Chọn cấu hình linear_svc_c05, tăng trọng số lớp neutral x1.25, đánh giá bằng điểm tổng hợp: Macro F1 40%, Weighted F1 35%, Accuracy 25%.</span>
+            </div>
+            <div class="evidence-box">
+              <b>Đã chạy 30 cấu hình validation</b>
+              <span>So sánh LinearSVC, Logistic Regression và Ridge với các mức trọng số neutral, oversampling khác nhau trước khi chọn mô hình tốt nhất.</span>
+            </div>
+            <div class="evidence-box">
+              <b>Đóng gói triển khai thật</b>
+              <span>Mô hình lưu dạng .joblib, Flask app gọi model để dự đoán từng câu hoặc file hàng loạt, kết quả trả về bằng nhãn tiếng Việt.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="section-label">07 · Vì sao đầu tư?</div>
+          <h2>Giá trị nằm ở tốc độ ra quyết định.</h2>
+          <div class="investment">
+            <div><b>Thị trường rõ</b><span>Nhà hàng, quán cà phê, chuỗi F&B đều cần đo chất lượng dịch vụ từ review.</span></div>
+            <div><b>Dễ triển khai</b><span>Chạy được trên web, nhận file phổ biến, không cần hạ tầng phức tạp.</span></div>
+            <div><b>Mở rộng được</b><span>Có thể thêm dashboard, phân tích chủ đề, cảnh báo review xấu.</span></div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="section-label">08 · Ứng dụng thực tế</div>
+          <h2>Từ lớp học đến vận hành dịch vụ.</h2>
+          <ul>
+            <li>Quét nhanh phản hồi sau khi khách dùng bữa.</li>
+            <li>Tổng hợp file khảo sát hằng tuần cho quản lý chi nhánh.</li>
+            <li>Lọc nhóm Không hài lòng để ưu tiên chăm sóc khách hàng.</li>
+            <li>Làm lớp AI đầu vào cho dashboard quản trị chất lượng.</li>
+          </ul>
+        </div>
+
+        <div class="module dark wide">
+          <div class="section-label">09 · Hạn chế & hướng phát triển</div>
+          <h2>Đường phát triển sau phiên bản demo.</h2>
+          <div class="roadmap">
+            <div class="roadmap-item"><b>Nhận diện chủ đề</b><span>Tách vấn đề về món ăn, phục vụ, giá cả, không gian, thời gian chờ.</span></div>
+            <div class="roadmap-item"><b>Dashboard quản lý</b><span>Biểu đồ theo ngày, chi nhánh, nguồn đánh giá và mức độ ưu tiên xử lý.</span></div>
+            <div class="roadmap-item"><b>Cải thiện neutral</b><span>Bổ sung dữ liệu cân bằng và thử mô hình ngôn ngữ tiếng Việt khi có tài nguyên.</span></div>
+            <div class="roadmap-item"><b>Triển khai online</b><span>Kết nối GitHub, báo cáo PDF, video demo và đường dẫn dùng thử qua QR.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer-band">
+        <div class="footer-copy">
+          <div class="section-label">QR bắt buộc</div>
+          <h2>Quét để xem demo, mã nguồn và tài liệu dự án.</h2>
+          <p>QR được đặt ở góc dưới phải theo yêu cầu poster. Nội dung poster dùng số liệu từ mô hình cuối trong thư mục results và ứng dụng Flask hiện có.</p>
+          <div class="print-note">Gợi ý xuất: mở file này bằng trình duyệt, in khổ A1 dọc, scale 100%, bật background graphics.</div>
+        </div>
+        <div class="qr-card">
+          <img src="results/foodmood_qr.png" alt="QR code FoodMood">
+          <b>FoodMood QR</b>
+          <span>Demo · GitHub · Báo cáo PDF</span>
+        </div>
+      </footer>
+    </article>
+  </main>
+</body>
+</html>

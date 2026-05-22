@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "FoodMood A1 Poster",
+  "entry": "foodmood-a1-poster.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-05-22T03:48:08.283Z",
+  "updatedAt": "2026-05-22T03:48:08.300Z",
+  "metadata": {
+    "identifier": "foodmood-a1-poster",
+    "artifactType": "text/html",
+    "inferred": false
+  }
+}
