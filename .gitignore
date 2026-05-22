@@ -1,0 +1,19 @@
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+env/
+sentiment_app/.venv/
+
+# Local app runtime files
+sentiment_app/uploads/
+sentiment_app/outputs/
+
+# Local secrets and OS/editor files
+.env
+*.log
+~$*.docx
+.DS_Store
+Thumbs.db

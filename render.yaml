@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: review-sense
+    env: python
+    plan: free
+    buildCommand: pip install -r sentiment_app/requirements.txt
+    startCommand: gunicorn --chdir sentiment_app app:app
+    autoDeploy: true
