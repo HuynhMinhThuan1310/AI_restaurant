@@ -29,14 +29,14 @@ ASPECT_CONFIG = [
         "key": "food",
         "title": "Món ăn",
         "keywords": [
-            "món", "đồ ăn", "thức ăn", "nước dùng", "nước chấm", "đồ uống", "món chính", "khẩu vị",
+            "món ăn", "đồ ăn", "thức ăn", "nước dùng", "nước chấm", "đồ uống", "món chính", "khẩu vị",
             "hải sản", "cơm", "bún", "phở", "lẩu", "mì", "miến", "gà", "bò", "cá", "thịt", "rau",
-            "bánh", "tráng miệng", "topping", "gia vị", "sốt", "menu",
+            "bánh", "tráng miệng", "topping", "gia vị", "sốt", "menu", "pizza", "sushi", "phô mai", "cà phê", "ăn",
         ],
         "positive_terms": [
             "ngon", "rất ngon", "ngon miệng", "vừa miệng", "vừa ăn", "tươi", "tươi ngon", "đậm đà",
             "thơm", "giòn", "mềm", "nóng hổi", "hấp dẫn", "đẹp mắt", "sạch sẽ", "chất lượng",
-            "đầy đặn", "nhiều topping", "nhiều thịt", "khá ngon", "ổn áp", "xuất sắc", "tuyệt vời",
+            "đầy đặn", "nhiều", "nhiều topping", "nhiều thịt", "khá ngon", "ổn áp", "xuất sắc", "tuyệt vời",
             "không chê được", "hài lòng",
         ],
         "neutral_terms": [
@@ -70,7 +70,7 @@ ASPECT_CONFIG = [
         "negative_terms": [
             "thái độ", "thái độ kém", "khó chịu", "cau có", "cọc", "bất lịch sự", "không thân thiện",
             "không nhiệt tình", "hời hợt", "thờ ơ", "lơ khách", "không quan tâm", "chậm", "chậm chạp",
-            "lâu", "phục vụ lâu", "phục vụ chậm", "sai order", "order sai", "quên món", "xử lý chậm",
+            "phục vụ lâu", "phục vụ chậm", "sai order", "order sai", "quên món", "xử lý chậm",
             "thiếu chuyên nghiệp", "tệ", "quát", "không xin lỗi", "bỏ mặc khách",
         ],
     },
@@ -78,9 +78,9 @@ ASPECT_CONFIG = [
         "key": "space",
         "title": "Không gian/địa điểm",
         "keywords": [
-            "không gian", "quán", "địa điểm", "vị trí", "chỗ ngồi", "bàn ghế", "nhà vệ sinh",
-            "gửi xe", "view", "decor", "trang trí", "âm nhạc", "ánh sáng", "máy lạnh", "mùi", "sạch",
-            "đẹp", "đông", "ồn",
+            "không gian", "địa điểm", "vị trí", "chỗ ngồi", "bàn ghế", "nhà vệ sinh",
+            "gửi xe", "view", "decor", "trang trí", "âm nhạc", "ánh sáng", "máy lạnh", "mùi", "sạch sẽ",
+            "rộng rãi", "chật chội", "yên tĩnh", "bẩn", "ồn", "quá đông",
         ],
         "positive_terms": [
             "đẹp", "sạch", "sạch sẽ", "thoáng", "thoáng mát", "rộng", "rộng rãi", "ấm cúng",
@@ -89,7 +89,7 @@ ASPECT_CONFIG = [
         "neutral_terms": ["ổn", "bình thường", "tạm", "tạm ổn", "được", "vừa đủ", "không quá rộng"],
         "negative_terms": [
             "ồn", "ồn ào", "bẩn", "không sạch", "chật", "chật chội", "nóng", "bí", "ngột ngạt",
-            "đông", "quá đông", "khó chịu", "hôi", "mùi khó chịu", "nhà vệ sinh bẩn", "thiếu chỗ ngồi",
+            "quá đông", "khó chịu", "hôi", "mùi khó chịu", "nhà vệ sinh bẩn", "thiếu chỗ ngồi",
             "khó gửi xe", "bàn ghế bẩn", "không thoáng",
         ],
     },
@@ -97,8 +97,9 @@ ASPECT_CONFIG = [
         "key": "price",
         "title": "Giá cả",
         "keywords": [
-            "giá", "giá cả", "giá tiền", "đắt", "rẻ", "hợp lý", "cao", "mắc", "phí", "chi phí",
-            "hóa đơn", "bill", "voucher", "khuyến mãi", "combo", "phần ăn", "suất", "size",
+            "giá", "giá cả", "giá tiền", "tiền", "đáng tiền", "không đáng tiền", "vừa túi tiền",
+            "đắt", "rẻ", "hợp lý", "cao", "mắc", "phí", "chi phí", "hóa đơn", "bill", "voucher",
+            "khuyến mãi", "combo", "phần ăn", "suất", "size", "giá chát",
         ],
         "positive_terms": [
             "hợp lý", "rẻ", "giá tốt", "đáng tiền", "đáng giá", "phù hợp", "vừa túi tiền", "nhiều so với giá",
@@ -108,13 +109,14 @@ ASPECT_CONFIG = [
         "negative_terms": [
             "đắt", "mắc", "cao", "quá cao", "hơi đắt", "khá đắt", "không đáng", "không đáng tiền",
             "ít", "phần ít", "giá chát", "phụ thu", "tính phí", "bill sai", "không rõ giá",
+            "size nhỏ", "nhỏ hơn mong đợi", "nhỏ",
         ],
     },
     {
         "key": "wait",
         "title": "Thời gian chờ",
         "keywords": [
-            "chờ", "đợi", "lâu", "nhanh", "lên món", "món lên", "ra món", "đợi món", "lên đồ",
+            "chờ", "lâu", "nhanh", "lên món", "món lên", "ra món", "đợi món", "lên đồ",
             "phục vụ lâu", "phục vụ nhanh", "xếp hàng", "thời gian", "chờ bàn", "mang món",
         ],
         "positive_terms": [
