@@ -11,8 +11,8 @@ from werkzeug.utils import secure_filename
 
 BASE_DIR = Path(__file__).resolve().parent
 MODEL_CANDIDATES = [
-    BASE_DIR.parent / "results" / "tfidf_restaurant_review_3class_final_overall_model.joblib",
-    BASE_DIR / "tfidf_restaurant_review_3class_final_overall_model.joblib",
+    BASE_DIR.parent / "results" / "model_FoodMood_TFIDF_LinearSVC.joblib",
+    BASE_DIR / "model_FoodMood_TFIDF_LinearSVC.joblib",
 ]
 UPLOAD_DIR = BASE_DIR / "uploads"
 OUTPUT_DIR = BASE_DIR / "outputs"

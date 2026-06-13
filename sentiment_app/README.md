@@ -1,9 +1,9 @@
-# Vietnamese Sentiment App
+# FoodMood - App phân tích cảm xúc review nhà hàng
 
 Ứng dụng Flask dùng bộ phân tích đánh giá nhà hàng mới đã train:
 
 ```text
-C:\AI\results\tfidf_restaurant_review_3class_final_overall_model.joblib
+C:\AI\results\model_FoodMood_TFIDF_LinearSVC.joblib
 ```
 
 Bộ phân tích chia đánh giá nhà hàng/quán ăn thành 3 nhóm hiển thị: `Không hài lòng`, `Trung lập`, `Hài lòng`.
